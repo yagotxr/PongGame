@@ -56,7 +56,7 @@ while not done:
     screen.fill(BLACK)
 
     # Circle config
-    pygame.draw.circle(screen, BLUE, (50, 50), square)
+    pygame.draw.rect(screen, BLUE, square)
     
     redScore = font.render(str(scoreboard['red']), True, RED)
     greenScore = font.render(str(scoreboard['green']), True, GREEN)
