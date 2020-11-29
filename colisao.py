@@ -114,8 +114,13 @@ while not done:
 
 done = False
 
-font = pygame.font.SysFont("comicsansms", 72)
+fontSize = 72
+font = pygame.font.SysFont("comicsansms", fontSize)
 fim = font.render("FIM DE JOGO", True, WHITE)
+
+fontSize = 30
+font = pygame.font.SysFont("comicsansms", fontSize)
+finalScore = font.render(f"Red {scoreboard['red']} --- X --- {scoreboard['green']} Green", True, WHITE)
 
 while not done:
     for event in pygame.event.get():
@@ -124,7 +129,8 @@ while not done:
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             done = True
     screen.fill((0, 0, 0))
-    screen.blit(fim, (320 - fim.get_width() // 2, 240 - fim.get_height() // 2))
+    screen.blit(fim, (320 - fim.get_width() // 2, 140 - fim.get_height() // 2))
+    screen.blit(finalScore, (400 - fim.get_width() // 2, 380 - fim.get_height() // 2))
     
     pygame.display.flip()
     clock.tick(60)
