@@ -12,14 +12,17 @@ done = False
 pygame.display.set_caption('Fernanda & Yago')
 
 scoreboard = {
-    "green":0, 
-    "red":0
-    } 
+    "green": 0,
+    "red": 0
+    }
 
 font = pygame.font.SysFont("comicsansms", 30)
 
 # cria o Rect para o quadrado
-square = pygame.Rect(300, 230, 20, 20)
+# square = pygame.Rect(300, 230, 20, 20)
+center = [300, 230]
+radius = 10
+square = pygame.Rect(center[0]-radius, center[1]-radius, radius*2, radius*2)
 
 direction = 0
 bip = 0
@@ -56,8 +59,9 @@ while not done:
     screen.fill(BLACK)
 
     # Circle config
-    pygame.draw.rect(screen, BLUE, square)
-    
+    # pygame.draw.rect(screen, BLUE, square)
+    pygame.draw.circle(screen, BLUE, square.center, radius)
+
     redScore = font.render(str(scoreboard['red']), True, RED)
     greenScore = font.render(str(scoreboard['green']), True, GREEN)
 
@@ -72,8 +76,10 @@ while not done:
             mixer.music.play()
         print(scoreboard)
         square = pygame.Rect(300, 230, 20, 20)
+        pygame.draw.circle(screen, BLUE, square.center, radius)
+        velocity_x = -velocity_x
 
-    #Left Pad Config
+    # Left Pad Config
     if keys[pygame.K_UP]:
         if left_pad.y >= 60:
             left_pad.move_ip(0, -8)
@@ -84,11 +90,11 @@ while not done:
 
     pygame.draw.rect(screen, RED, left_pad)
     
-    #Right Pad Config
+    # Right Pad Config
     right_pad.move_ip(0, velocity_y * dt)
-    if right_pad.y > 420:
+    if right_pad.y >= 420:
         velocity_y = -velocity_y
-    if right_pad.y < 60:
+    if right_pad.y <= 60:
         velocity_y = -velocity_y
 
     screen.blit(redScore, (20, 0))
@@ -97,7 +103,7 @@ while not done:
     pygame.draw.rect(screen, GREEN, right_pad)
 
 
-    #ESC button
+    # ESC button
     if keys[pygame.K_ESCAPE]:
         mixer.music.load("the-end.mp3")
         mixer.music.play()
